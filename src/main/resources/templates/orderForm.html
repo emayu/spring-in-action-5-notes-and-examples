@@ -18,10 +18,10 @@
             </div>
             
             <h3>Deliver my taco masterpieces to...</h3>
-            <label for="name">Name:</label>
-            <input type="text" th:field="*{name}"/>
-            <span class="validationError" th:if="${#fields.hasErrors('name')}"
-                  th:errors="*{name}"/>
+            <label for="deliveryName">Name:</label>
+            <input type="text" th:field="*{deliveryName}"/>
+            <span class="validationError" th:if="${#fields.hasErrors('deliveryName')}"
+                  th:errors="*{deliveryName}"/>
             <br/>
             
             <label for="street">Street address:</label>
@@ -62,10 +62,10 @@
                   th:errors="*{ccExpiration}"/>
             <br/>
             
-            <label for="ccCCV">CVV:</label>
-            <input type="text" th:field="*{ccCCV}"/>
-            <span class="validationError" th:if="${#fields.hasErrors('ccCCV')}"
-                  th:errors="*{ccCCV}"/>
+            <label for="ccCVV">CVV:</label>
+            <input type="text" th:field="*{ccCVV}"/>
+            <span class="validationError" th:if="${#fields.hasErrors('ccCVV')}"
+                  th:errors="*{ccCVV}"/>
             <br/>
             
             <input type="submit" value="Submit Order"/>

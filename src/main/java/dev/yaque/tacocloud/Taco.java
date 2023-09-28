@@ -4,6 +4,7 @@
  */
 package dev.yaque.tacocloud;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,13 +16,37 @@ import javax.validation.constraints.Size;
  * @author yaque
  */
 public class Taco {
+    
+    private Long id;
+    
+    private Date createAt;
+            
     @NotNull
     @Size(min = 5, message = "Name must be at least 5 characters long")
     private String name;
     
     @NotNull(message = "You must choose at least 1 ingredient")
     @Size(min = 1, message = "You must choose at least 1 ingredient")
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+    
+    
+    
 
     public String getName() {
         return name;
@@ -31,11 +56,11 @@ public class Taco {
         this.name = name;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -57,16 +82,15 @@ public class Taco {
             return false;
         }
         final Taco other = (Taco) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return Objects.equals(this.ingredients, other.ingredients);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "Taco{" + "name=" + name + ", ingredients=" + ingredients + '}';
+        return "Taco{" + "id=" + id + ", name=" + name + ", ingredients=" + ingredients + ", createAt=" + createAt + '}';
     }
+    
+    
     
     
 }

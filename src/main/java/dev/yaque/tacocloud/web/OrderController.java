@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dev.yaque.tacocloud.Order;
+import dev.yaque.tacocloud.data.OrderRepository;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+
 
 
 
@@ -23,24 +27,35 @@ import dev.yaque.tacocloud.Order;
  */
 @Controller 
 @RequestMapping("/orders")
+@SessionAttributes("order")
 public class OrderController {
     
     private static final org.slf4j.Logger log
             = org.slf4j.LoggerFactory.getLogger(OrderController.class);
     
+    private OrderRepository orderRepo;
+
+    public OrderController(OrderRepository orderRepo) {
+        this.orderRepo = orderRepo;
+    }
+    
     @GetMapping("/current")
     public String orderForm(Model model){
-        model.addAttribute("order", new Order());
+        if(model.getAttribute("order") == null){
+            return "redirect:/design";
+        }
         return "orderForm";
     }
     
     @PostMapping
-    public String processOrder(@Valid Order order, Errors errors){
+    public String processOrder(@Valid Order order, Errors errors,
+            SessionStatus sessionStatus) {
         log.info("errros="+errors);
         if(errors.hasErrors()){
             return "orderForm";
         }
-        log.info("Order submitted:" + order);
+        orderRepo.save(order);
+        sessionStatus.setComplete();
         return "redirect:/";
     }
 }

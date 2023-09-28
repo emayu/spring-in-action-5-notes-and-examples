@@ -4,11 +4,15 @@
  */
 package dev.yaque.tacocloud;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
@@ -17,8 +21,11 @@ import org.hibernate.validator.constraints.CreditCardNumber;
  * @author yaque
  */
 public class Order {
+    
+    private Long id;
+        
     @NotBlank(message = "Name is required")
-    private String name;
+    private String deliveryName;
     
     @NotBlank(message = "Street is required")
     private String street;
@@ -27,6 +34,7 @@ public class Order {
     private String city;
     
     @NotBlank(message = "State is required")
+    @Size(max = 2, message = "Use short state name(2 letter)")
     private String state;
     
     @NotBlank(message = "Zip code is required")
@@ -40,14 +48,42 @@ public class Order {
     private String ccExpiration;
     
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
-    private String ccCCV;
-
-    public String getName() {
-        return name;
+    private String ccCVV;
+    
+    private Date placedAt;
+    
+    private List<Taco> tacos = new ArrayList<>();
+    
+    public void addDesign(Taco taco){
+        tacos.add(taco);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<Taco> getTacos() {
+        return tacos;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getPlacedAt() {
+        return placedAt;
+    }
+
+    public void setPlacedAt(Date placedAt) {
+        this.placedAt = placedAt;
+    }
+
+    public String getDeliveryName() {
+        return deliveryName;
+    }
+
+    public void setDeliveryName(String deliveryName) {
+        this.deliveryName = deliveryName;
     }
 
     public String getStreet() {
@@ -108,12 +144,12 @@ public class Order {
         this.ccExpiration = ccExpiration;
     }
 
-    public String getCcCCV() {
-        return ccCCV;
+    public String getCcCVV() {
+        return ccCVV;
     }
 
-    public void setCcCCV(String ccCCV) {
-        this.ccCCV = ccCCV;
+    public void setCcCVV(String ccCVV) {
+        this.ccCVV = ccCVV;
     }
 
 
@@ -135,14 +171,12 @@ public class Order {
             return false;
         }
         final Order other = (Order) obj;
-        return Objects.equals(this.name, other.name);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "Order{" + "name=" + name + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", ccNumber=" + getLast4ccNumber()  + ", ccExpiration=" + ccExpiration + ", ccCVV=" + ccCCV + '}';
+        return "Order{" + "id=" + id + ", name=" + deliveryName + ", street=" + street + ", city=" + city + ", state=" + state + ", zip=" + zip + ", ccNumber=" + getLast4ccNumber() + ", ccExpiration=" + ccExpiration + ", ccCVV=" + ccCVV + ", placedAt=" + placedAt + '}';
     }
-    
-    
-    
+ 
 }
