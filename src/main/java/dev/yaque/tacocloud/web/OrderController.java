@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dev.yaque.tacocloud.Order;
 import dev.yaque.tacocloud.data.OrderRepository;
+import dev.yaque.tacocloud.data.OrderRepositoryJPA;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -33,9 +34,9 @@ public class OrderController {
     private static final org.slf4j.Logger log
             = org.slf4j.LoggerFactory.getLogger(OrderController.class);
     
-    private OrderRepository orderRepo;
+    private OrderRepositoryJPA orderRepo;
 
-    public OrderController(OrderRepository orderRepo) {
+    public OrderController(OrderRepositoryJPA orderRepo) {
         this.orderRepo = orderRepo;
     }
     

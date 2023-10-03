@@ -7,6 +7,12 @@ package dev.yaque.tacocloud;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,8 +21,11 @@ import javax.validation.constraints.Size;
  *
  * @author yaque
  */
+@Entity
 public class Taco {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     private Date createAt;
@@ -27,7 +36,13 @@ public class Taco {
     
     @NotNull(message = "You must choose at least 1 ingredient")
     @Size(min = 1, message = "You must choose at least 1 ingredient")
+    @ManyToMany(targetEntity = Ingredient.class)
     private List<Ingredient> ingredients;
+    
+    @PrePersist
+    void prePersist(){
+        this.setCreateAt(new Date());
+    }
 
     public Long getId() {
         return id;
@@ -44,8 +59,6 @@ public class Taco {
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
-    
-    
     
 
     public String getName() {

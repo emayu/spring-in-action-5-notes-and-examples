@@ -5,12 +5,17 @@
 package dev.yaque.tacocloud;
 
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  *
  * @author yaque
  */
+@Entity
 public class Ingredient {
+    
+    @Id
     private final String id;
     private final String name;
     private final Type type;
@@ -19,6 +24,11 @@ public class Ingredient {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
 
+    public Ingredient() {
+        this(null, null, null);
+    }
+
+    
     public Ingredient(String id, String name, Type type) {
         this.id = id;
         this.name = name;

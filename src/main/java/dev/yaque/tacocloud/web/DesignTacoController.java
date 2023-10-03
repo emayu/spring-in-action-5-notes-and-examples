@@ -9,7 +9,9 @@ import dev.yaque.tacocloud.Ingredient.Type;
 import dev.yaque.tacocloud.Order;
 import dev.yaque.tacocloud.Taco;
 import dev.yaque.tacocloud.data.IngredientRepository;
+import dev.yaque.tacocloud.data.IngredientRepositoryJPA;
 import dev.yaque.tacocloud.data.TacoRepository;
+import dev.yaque.tacocloud.data.TacoRepositoryJPA;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -35,11 +37,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes("order")
 public class DesignTacoController {
     
-    private final IngredientRepository ingredientRepo;
-    private TacoRepository designRepo;
+    private final IngredientRepositoryJPA ingredientRepo;
+    private TacoRepositoryJPA designRepo;
 
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository designRepo) {
+    public DesignTacoController(IngredientRepositoryJPA ingredientRepo, TacoRepositoryJPA designRepo) {
         this.ingredientRepo = ingredientRepo;
         this.designRepo = designRepo;
     }
