@@ -35,3 +35,5 @@ insert into Ingredient (id, name, type)
 insert into Ingredient (id, name, type) 
                 values ('SRCR', 'Sour Cream', '4');
   
+insert into Users (id, city, fullname, password, phone_number, state, street, username, zip)
+    values('1', 'city', 'test user name', '8d8b2c209e8b76d752faec2e41009f80b9bda99236b8091044c3b08ebae818e5edc789ad3cdbba03', 'phone', 'state', 'street', 'test', 'zip zip');
